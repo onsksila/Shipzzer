@@ -1,0 +1,47 @@
+<div class="main">
+  <div class="input-container">
+    <label for="x">Please Type a number : </label>
+    <input type="number" [formControl]="numberInput" />
+    <div *ngIf="numberInput.invalid" class="alert">
+      Please enter a valid number !
+    </div>
+    <button
+      class="gen-btn"
+      [disabled]="numberInput.invalid"
+      (click)="generateNumbers()"
+    >
+      Generate
+    </button>
+    <p *ngIf="numbers.length > 0">
+      <span class="bar">| </span>
+
+      <span *ngFor="let number of numbers">
+        {{ number }} <span class="bar">|</span>
+      </span>
+    </p>
+  </div>
+  <div class="svg-container" *ngIf="numbers.length > 0">
+    <svg
+      id="chart"
+      [attr.width]="calculateWidth()"
+      height="15"
+      [attr.viewBox]="generateViewBox()"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g *ngFor="let number of numbers; let i = index">
+        <rect
+          width="15"
+          height="15"
+          [attr.x]="calculateRectX(i)"
+          [attr.fill]="generateColor(i)"
+        />
+      </g>
+    </svg>
+  </div>
+
+  <img />
+
+  <canvas></canvas>
+  <a id="dl" download="Canvas.png" href="#">Download Canvas</a>
+</div>
